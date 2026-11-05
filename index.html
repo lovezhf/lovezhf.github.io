@@ -11,7 +11,7 @@
 body{margin:0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.75;overflow-x:hidden}
 a{color:#d94f70}
 .hero{min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:48px 20px 70px;background:linear-gradient(180deg,#ffe9f0 0%,#fff3d6 52%,#fff8ec 100%);position:relative}
-.hero:before{content:"✦  ❤  ✦";position:absolute;top:22px;left:0;right:0;letter-spacing:18px;color:#ffb3c6;font-size:20px}
+.hero:before{content:"?  ?  ?";position:absolute;top:22px;left:0;right:0;letter-spacing:18px;color:#ffb3c6;font-size:20px}
 .hero-inner{max-width:760px}
 .tag{display:inline-block;background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:6px 16px;font-weight:700;box-shadow:4px 4px 0 var(--yellow)}
 h1{font-size:clamp(44px,8vw,76px);line-height:1.15;margin:22px 0 8px;letter-spacing:2px}
@@ -45,14 +45,52 @@ main{max-width:860px;margin:0 auto;padding:20px 18px 150px}
 #blessList{list-style:none;padding:0;margin:18px 0 0;text-align:left}
 #blessList li{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px 14px;margin:8px 0}
 .small{font-size:14px;color:#8a7a6e}
-footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
-.player{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;background:rgba(255,255,255,.96);border:3px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 rgba(0,0,0,.15);padding:10px 12px;display:flex;gap:12px;align-items:center;max-width:720px;margin:0 auto}
-.player .txt{flex:1;min-width:0;font-size:14px;line-height:1.4}
-.player .txt b{display:block;font-size:15px}
-.player iframe{width:300px;max-width:46vw;height:66px;border:0}
+footer{text-align:center;padding:0 20px 60px;color:#8a7a6e;font-size:14px}
+
+/* ---- 隐藏音乐播放器：只出声，不挡页面 ---- */
+#bgMusicWrap{
+  position:fixed;
+  right:6px;
+  bottom:6px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  opacity:0.01;
+  z-index:1;
+  pointer-events:none; /* 不挡任何点击 */
+}
+#bgMusicWrap iframe{
+  width:1px;
+  height:1px;
+  border:0;
+}
+
+/* 可选：一个很淡的小音符，点一下可以“唤醒”音乐，不展开面板 */
+.music-hint{
+  position:fixed;
+  right:10px;
+  bottom:10px;
+  z-index:40;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:rgba(255,255,255,.75);
+  border:2px solid var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  cursor:pointer;
+  opacity:.45;
+  transition:opacity .2s;
+  user-select:none;
+}
+.music-hint:hover{opacity:1}
+.music-hint.hidden{display:none}
+
 .heart{position:fixed;z-index:1;pointer-events:none;animation:floatUp 5s ease-in forwards;font-size:20px}
 @keyframes floatUp{from{transform:translateY(0) rotate(0);opacity:1}to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
-@media(max-width:640px){.chapter{padding:22px 18px}.player{align-items:flex-start}.player iframe{width:180px}}
+@media(max-width:640px){.chapter{padding:22px 18px}}
 </style>
 </head>
 <body>
@@ -62,7 +100,7 @@ footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
     <h1>我们的<span>故事</span></h1>
     <p class="subtitle">从一次相亲开始，到一句“愿你们都有幸福的结局”</p>
     <p class="lead">有些人，相亲了很多次都不对。<br>直到遇见她，才知道什么叫发自内心的喜欢。</p>
-    <button class="btn" onclick="startMusic()">♫ 点我开始，边听边看 ↓</button>
+    <button class="btn" onclick="startMusic()">? 点我开始，边听边看 ↓</button>
     <a class="btn yellow" href="#c1">开始看故事 ↓</a>
     <p class="small" style="margin-top:18px">往下翻，一共 8 个小章节，大概 3 分钟看完。</p>
   </div>
@@ -76,7 +114,7 @@ footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
     <p>直到在微信上，看到她朋友圈的一张照片——那一刻我就知道：<b>就是她了，是那种发自内心喜欢的人。</b></p>
     <div class="phone">
       <div class="top">微信 · 朋友圈</div>
-      <div class="bubble">📷 她的照片，就这样安安静静地出现。</div><br>
+      <div class="bubble">?? 她的照片，就这样安安静静地出现。</div><br>
       <div class="bubble me">（心里突然跳了一下）<br>原来，喜欢一个人，是藏不住的。</div><br>
       <div class="bubble">我知道，我可能配不上她。<br>可是，喜欢就是控制不住啊。</div>
     </div>
@@ -90,7 +128,7 @@ footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
     <p class="caption">冬夜 · 商场门口 · 19:00 —— 很多年过去，我还记得第一次见她的样子。</p>
     <p>她穿着一件<b>淡黄色的外套，深色的裤子，白色的鞋子</b>。她应该是那种内向的人，却特别善良。</p>
     <p>第一次见面，气氛难免尴尬。她会时不时地笑一下——就那一下，尴尬就被轻轻化解了。</p>
-    <div><span class="bubble">她：😊（轻轻一笑）</span> <span class="bubble me">我：（紧张得手都不知道往哪放）</span></div>
+    <div><span class="bubble">她：??（轻轻一笑）</span> <span class="bubble me">我：（紧张得手都不知道往哪放）</span></div>
   </section>
 
   <section class="chapter">
@@ -100,14 +138,14 @@ footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
     <div class="phone">
       <div class="top">微信聊天</div>
       <div class="bubble me">今天过得怎么样？</div><br>
-      <div class="bubble">挺好的，你呢？😊</div><br>
+      <div class="bubble">挺好的，你呢？??</div><br>
       <div class="bubble me">想你了……不对，是想跟你多聊聊。</div>
     </div>
     <p>然后，就有了第二次、第三次、第四次见面……</p>
     <div class="dots">
-      <div class="dot"><span>🌸</span>第二次见面</div>
-      <div class="dot"><span>☕</span>第三次见面</div>
-      <div class="dot"><span>🌙</span>第四次见面</div>
+      <div class="dot"><span>??</span>第二次见面</div>
+      <div class="dot"><span>?</span>第三次见面</div>
+      <div class="dot"><span>??</span>第四次见面</div>
       <div class="dot"><span>……</span>还有很多次</div>
     </div>
   </section>
@@ -135,10 +173,10 @@ footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
     <div class="num">CHAPTER 06 · 我以为的后来</div>
     <h2>我以为，我们会像其他人一样</h2>
     <div class="timeline">
-      <div>💑 <b>相爱</b> —— 每天都想见面，每天都想发微信。</div>
-      <div>💍 <b>结婚</b> —— 一起过日子，一起慢慢变老。</div>
-      <div>🏡 <b>相伴</b> —— 吵吵闹闹，也舍不得分开。</div>
-      <div>🤍 <b>相守</b> —— 走到最后，还牵着手。</div>
+      <div>?? <b>相爱</b> —— 每天都想见面，每天都想发微信。</div>
+      <div>?? <b>结婚</b> —— 一起过日子，一起慢慢变老。</div>
+      <div>?? <b>相伴</b> —— 吵吵闹闹，也舍不得分开。</div>
+      <div>?? <b>相守</b> —— 走到最后，还牵着手。</div>
     </div>
     <p>我以为我们的爱情，就跟其他人一样。可是，生活不是按剧本走的。</p>
   </section>
@@ -155,49 +193,93 @@ footer{text-align:center;padding:0 20px 130px;color:#8a7a6e;font-size:14px}
 
   <section class="wish">
     <div class="num">ENDING · 写给看到这里的你</div>
-    <h2>愿你勇敢一点，<br>愿你有一个幸福的结局 💛</h2>
+    <h2>愿你勇敢一点，<br>愿你有一个幸福的结局 ??</h2>
     <p>我们的结局不好，但这个故事不想停在难过里。</p>
     <p><b>希望看到我们故事的人，都能够有幸福的结局。</b><br>喜欢就说出来，想牵手就勇敢一点，想挽留，就不要等到巷子口才后悔。</p>
     <input id="blessInput" placeholder="留一句祝福吧，比如：愿你们都勇敢又幸福…" maxlength="80">
-    <br><button class="btn" onclick="addBless()">💌 送上这句祝福</button>
+    <br><button class="btn" onclick="addBless()">?? 送上这句祝福</button>
     <ul id="blessList"></ul>
     <p class="small">小提示：这里的祝福只会保存在你自己的浏览器里，是给自己留念的。</p>
   </section>
 </main>
 
 <footer>
-  <p>我们的故事 · 根据讲述画成的漫画小站，人物为漫画形象，不是真人照片。<br>背景音乐来自网易云外链播放器，点击播放器 ▶ 即可播放。</p>
+  <p>我们的故事 · 根据讲述画成的漫画小站，人物为漫画形象，不是真人照片。<br>背景音乐来自网易云外链播放器，点击页面里的 ▶ 即可播放。</p>
   <p><a href="https://music.163.com/#/song?id=27928402" target="_blank" rel="noopener">在网易云打开这首歌 ↗</a></p>
 </footer>
 
-<div class="player" id="playerBar">
-  <div class="txt"><b>♫ 我们的背景音乐</b>浏览器会拦自动播放，点一下播放器里的 ▶ 就能边听边看。<span id="musicTip"></span></div>
-  <iframe id="neteasePlayer" src="https://music.163.com/outchain/player?type=2&id=27928402&auto=0&height=66" allow="autoplay" title="网易云音乐播放器"></iframe>
+<!-- 隐藏的网易云播放器：只负责出声，不占页面、不挡点击 -->
+<div id="bgMusicWrap" aria-hidden="true">
+  <iframe id="neteasePlayer"
+          src="https://music.163.com/outchain/player?type=2&id=27928402&auto=0&height=66"
+          allow="autoplay"
+          title="背景音乐播放器"></iframe>
 </div>
 
+<!-- 可选的小音符：如果点了“点我开始”还没声音，点它一下再触发播放 -->
+<div class="music-hint" id="musicHint" title="点一下播放/暂停背景音乐" onclick="wakeMusic()">🎵</div>
+
 <script>
+var musicHint = document.getElementById('musicHint');
+var playerIframe = document.getElementById('neteasePlayer');
+
 function startMusic(){
-  var p=document.getElementById('neteasePlayer');
-  p.src='https://music.163.com/outchain/player?type=2&id=27928402&auto=1&height=66';
-  document.getElementById('musicTip').textContent=' 已点开始播放，如果没声请再点一下播放器里的 ▶。';
-  document.getElementById('playerBar').scrollIntoView({behavior:'smooth',block:'end'});
-  for(var i=0;i<8;i++) setTimeout(makeHeart,i*180);
+  // 只重新加载播放器以尝试自动播放，不弹出任何面板
+  playerIframe.src = 'https://music.163.com/outchain/player?type=2&id=27928402&auto=1&height=66';
+  musicHint.classList.add('hidden');
+  for(var i=0;i<8;i++) setTimeout(makeHeart, i*180);
 }
+
+function wakeMusic(){
+  // 用户主动点小音符时，重新触发一次自动播放
+  playerIframe.src = 'https://music.163.com/outchain/player?type=2&id=27928402&auto=1&height=66';
+  musicHint.classList.add('hidden');
+}
+
 function makeHeart(){
-  var s=document.createElement('span');s.className='heart';s.textContent=['❤','💛','✦'][Math.floor(Math.random()*3)];
-  s.style.left=(10+Math.random()*80)+'vw';s.style.bottom='90px';document.body.appendChild(s);
+  var s=document.createElement('span');
+  s.className='heart';
+  s.textContent=['💗','💖','❤️'][Math.floor(Math.random()*3)];
+  s.style.left=(10+Math.random()*80)+'vw';
+  s.style.bottom='90px';
+  document.body.appendChild(s);
   setTimeout(function(){s.remove()},5200);
 }
+
 function addBless(){
-  var v=document.getElementById('blessInput');var t=v.value.trim();
+  var v=document.getElementById('blessInput');
+  var t=v.value.trim();
   if(!t){alert('先写一句祝福再送出哦');return;}
-  var li=document.createElement('li');li.textContent='💌 '+t;document.getElementById('blessList').prepend(li);
-  try{var a=JSON.parse(localStorage.getItem('our_bless')||'[]');a.unshift(t);localStorage.setItem('our_bless',JSON.stringify(a.slice(0,20)));}catch(e){}
-  v.value='';makeHeart();
+  var li=document.createElement('li');
+  li.textContent='💌 '+t;
+  document.getElementById('blessList').prepend(li);
+  try{
+    var a=JSON.parse(localStorage.getItem('our_bless')||'[]');
+    a.unshift(t);
+    localStorage.setItem('our_bless',JSON.stringify(a.slice(0,20)));
+  }catch(e){}
+  v.value='';
+  makeHeart();
 }
-try{(JSON.parse(localStorage.getItem('our_bless')||'[]')).forEach(function(t){var li=document.createElement('li');li.textContent='💌 '+t;document.getElementById('blessList').appendChild(li);});}catch(e){}
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target);}})},{threshold:.12});
+
+try{
+  (JSON.parse(localStorage.getItem('our_bless')||'[]')).forEach(function(t){
+    var li=document.createElement('li');
+    li.textContent='💌 '+t;
+    document.getElementById('blessList').appendChild(li);
+  });
+}catch(e){}
+
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
 document.querySelectorAll('.chapter').forEach(function(c){io.observe(c)});
+
 setInterval(makeHeart,4200);
 </script>
 </body>
