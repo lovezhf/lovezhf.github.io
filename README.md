@@ -3,7 +3,7 @@
 # 📖 我们的故事
 **Our Story · 一个从相亲开始的故事**
 
-[![Live Demo](https://img.shields.io/badge/🌐_在线预览-点击打开_我们的故事-ff7a9e?style=for-the-badge&logo=github)](https://你的用户名.github.io/你的仓库名/)
+[![Live Demo](https://img.shields.io/badge/🌐_在线预览-点击打开_我们的故事-ff7a9e?style=for-the-badge&logo=github)](https://lovezhf.github.io/)
 <!-- 上面这行请把链接换成你实际开启 GitHub Pages 的网址 -->
 
 [![Made with Love](https://img.shields.io/badge/Made_with-❤️_&_HTML-ff7a9e?style=flat-square)]()
@@ -56,4 +56,4 @@
 
 1. 克隆这个仓库到本地：
    ```bash
-   git clone https://github.com/你的用户名/你的仓库名.git
+   git clone https://github.com/lovezhf/lovezhf.github.io.git
