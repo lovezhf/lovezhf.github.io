@@ -1,27 +1,59 @@
-# 我们的故事 · GitHub Pages 部署说明
+<div align="center">
 
-纯 HTML + JS + 图片，没有后端，GitHub Pages 可以直接跑。
+# 📖 我们的故事
+**Our Story · 一个从相亲开始的故事**
 
-## 文件
-- `index.html`：整站，只这一个页面
-- `images/01-first-meeting.webp`：冬夜商场门口第一次见面
-- `images/02-holding-hands.webp`：牵手
-- `images/03-alley.webp`：巷子口
-- `images/04-farewell-hope.webp`：分开与希望
+[![Live Demo](https://img.shields.io/badge/🌐_在线预览-点击打开_我们的故事-ff7a9e?style=for-the-badge&logo=github)](https://你的用户名.github.io/你的仓库名/)
+<!-- 上面这行请把链接换成你实际开启 GitHub Pages 的网址 -->
 
-## 部署（2 分钟）
-1. 在 GitHub 新建一个仓库，名字就是你的 `username.github.io`（username 换成你的 GitHub 用户名）。
-2. 把 `index.html` 和 `images/` 整个文件夹传到仓库根目录，不要再套一层文件夹。
-3. 打开仓库 Settings → Pages，Source 选 Deploy from a branch，分支选 main，目录选 /(root)，保存。
-4. 等 1-2 分钟，打开 `https://username.github.io/` 就能看到。
+[![Made with Love](https://img.shields.io/badge/Made_with-❤️_&_HTML-ff7a9e?style=flat-square)]()
+[![Status](https://img.shields.io/badge/Status-Completed-blue?style=flat-square)]()
 
-如果已经有一个 `username.github.io` 仓库在用，就新建一个普通仓库（比如 our-story），Pages 开启后地址会是 `https://username.github.io/our-story/`，文件同样传到根目录即可。
+</div>
 
-## 音乐说明
-背景音乐用的是你给的网易云歌曲 ID 27928402 的官方外链播放器。
-浏览器会拦截“自动播放带声音”，所以页面做了“点我开始”按钮：访客点一下，就会尝试播放；如果还是没声，再点一下播放器里的 ▶ 就好。这是浏览器规则，不是代码坏了。
+<br>
 
-## 想改的地方
-- 改文字：直接改 `index.html` 里的中文就行，章节都在 `<section class="chapter">` 里。
-- 换图片：把新图放到 `images/`，保持文件名不变直接覆盖最省事。
-- 换歌：把 `index.html` 里的 `id=27928402` 换成另一首歌的 ID，页脚的网易云链接也一起换。
+> “有些人，相亲了很多次都不对。
+> 直到遇见她，才知道什么叫发自内心的喜欢。”
+
+这是一个关于 **我** 和 **她** 的真实故事。
+从冬夜商场门口的第一次见面，到每天微信的日常，从鼓起勇气牵起的手，到巷子口那一下慌张的拥抱…… 最后，走向了没有彩蛋的结局。
+
+我没有把这段记忆封存，而是用 HTML 和 CSS 把那些细节画成了一张张漫画，做成了一个只有几页的互动小站。**在这里，你可以边听歌，边看故事。**
+
+---
+
+### 🎬 剧情速览（8 个小章节）
+
+- 🍂 **Chapter 01 · 在见面之前**：朋友圈里的一张照片，我就心动了。
+- ❄️ **Chapter 02 · 第一次见面**：冬夜商场门口，她淡黄色的外套，和化解尴尬的笑。
+- 💬 **Chapter 03 · 每天微信**：想多了解她一点，就有了后来的无数次见面。
+- 🤝 **Chapter 04 · 一个月之后**：我勇敢地牵了她的手，但也只敢牵手。
+- 🚌 **Chapter 05 · 很远的一次出游**：坐了一小时公交，在巷子口抱了一下，然后慌张地跑了。
+- 💍 **Chapter 06 · 我以为的后来**：我以为我们会相爱、结婚、相伴、相守。
+- 🌅 **Chapter 07 · 分开**：她走得很决绝，而我也没有追回去的勇气。
+- 💌 **ENDING · 愿你幸福**：我们的结局不好，但希望看到这个故事的你，能有一个幸福的结局。
+
+---
+
+### ✨ 为什么把它放在 GitHub？
+
+代码通常用来构建工具，改变世界。
+但有时候，**代码也可以用来纪念一段感情，给一次心动画上一个温柔的句号。**
+
+这里的每一句文案、每一个聊天气泡、每一次滑动的特效，都是真实的记忆切片。
+
+### 🛠️ 技术细节 (Tech Stack)
+
+- **纯原生开发**：没有复杂的框架，仅使用 `HTML5` + `CSS3` + `Vanilla JS` 构建。
+- **响应式设计**：完美适配手机端和桌面端，适合在安静的时候用手机滑动阅读。
+- **极简交互**：包含动态的心形特效、滚动淡入动画，以及基于 `localStorage` 的电子留言板（你写下的祝福只会留在你自己的浏览器里）。
+- **沉浸式 BGM**：隐藏了传统的播放器组件，点击页面按钮即可唤醒网易云外链音乐，不阻挡视线。
+
+---
+
+### 💻 想在本地运行看看？
+
+1. 克隆这个仓库到本地：
+   ```bash
+   git clone https://github.com/你的用户名/你的仓库名.git
