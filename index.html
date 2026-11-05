@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我们的故事</title>
+<meta name="description" content="一个从相亲开始的故事：冬夜商场门口的第一次见面，每天微信，牵手，远行，告别。愿看到这个故事的人，都有一个幸福的结局。">
+<style>
+*{box-sizing:border-box}
+:root{--ink:#2e2a26;--pink:#ff7a9e;--yellow:#ffd166;--cream:#fff8ec;--card:#ffffff;--blue:#8ecae6}
+body{margin:0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.75;overflow-x:hidden}
+a{color:#d94f70}
+.hero{min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:48px 20px 70px;background:linear-gradient(180deg,#ffe9f0 0%,#fff3d6 52%,#fff8ec 100%);position:relative}
+/* 修复了顶部的装饰爱心 */
+.hero:before{content:"❤️  💖  💗";position:absolute;top:22px;left:0;right:0;letter-spacing:18px;color:#ffb3c6;font-size:20px}
+.hero-inner{max-width:760px}
+.tag{display:inline-block;background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:6px 16px;font-weight:700;box-shadow:4px 4px 0 var(--yellow)}
+h1{font-size:clamp(44px,8vw,76px);line-height:1.15;margin:22px 0 8px;letter-spacing:2px}
+h1 span{color:var(--pink)}
+.subtitle{font-size:19px;color:#6b5f55}
+.hero p.lead{font-size:18px}
+.btn{display:inline-block;margin-top:18px;background:var(--pink);color:#fff!important;border:3px solid var(--ink);border-radius:999px;padding:13px 26px;font-size:17px;font-weight:800;text-decoration:none;box-shadow:5px 5px 0 var(--ink);cursor:pointer}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
+.btn.yellow{background:var(--yellow);color:var(--ink)!important}
+main{max-width:860px;margin:0 auto;padding:20px 18px 150px}
+.chapter{background:var(--card);border:3px solid var(--ink);border-radius:22px;padding:26px 24px;margin:34px 0;box-shadow:7px 7px 0 #ffd9a8;opacity:0;transform:translateY(24px);transition:.7s ease}
+.chapter.show{opacity:1;transform:none}
+.chapter:nth-child(even){box-shadow:7px 7px 0 #ffc2d1}
+.num{font-size:13px;letter-spacing:3px;font-weight:800;color:#c44569}
+.chapter h2{font-size:28px;margin:6px 0 10px;line-height:1.4}
+.chapter p{font-size:17px;margin:10px 0}
+.chapter img{width:100%;border:3px solid var(--ink);border-radius:16px;display:block;margin:16px 0 8px;background:#eee}
+.caption{font-size:14px;color:#8a7a6e;text-align:center;margin:0 0 10px}
+.bubble{display:inline-block;background:#fff0f3;border:2.5px solid var(--ink);border-radius:18px 18px 18px 4px;padding:12px 16px;margin:8px 6px 8px 0;max-width:92%;font-size:16px}
+.bubble.me{background:#fff8d6;border-radius:18px 18px 4px 18px}
+.phone{border:3px solid var(--ink);border-radius:26px;padding:18px;background:#fdf3ff;max-width:520px;margin:16px auto}
+.phone .top{text-align:center;font-weight:800;border-bottom:2px dashed #d8b8d8;padding-bottom:8px;margin-bottom:10px}
+.dots{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+.dot{flex:1;min-width:130px;text-align:center;background:#fff;border:2.5px solid var(--ink);border-radius:16px;padding:14px 8px;font-weight:700}
+.dot span{display:block;font-size:26px}
+.timeline{border-left:4px dashed #ffb3c6;margin:18px 0 8px 10px;padding-left:20px}
+.timeline div{margin:14px 0}
+.wish{background:linear-gradient(135deg,#ffe9f0,#fff3d6);border:3px solid var(--ink);border-radius:22px;padding:30px 24px;text-align:center;box-shadow:7px 7px 0 var(--pink)}
+.wish h2{font-size:30px;margin:0 0 10px}
+.wish input{width:100%;max-width:520px;padding:13px 16px;border:2.5px solid var(--ink);border-radius:999px;font-size:16px;margin-top:12px}
+#blessList{list-style:none;padding:0;margin:18px 0 0;text-align:left}
+#blessList li{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px 14px;margin:8px 0}
+.small{font-size:14px;color:#8a7a6e}
+footer{text-align:center;padding:0 20px 60px;color:#8a7a6e;font-size:14px}
+
+/* ---- 隐藏音乐播放器：只出声，不挡页面 ---- */
+#bgMusicWrap{
+  position:fixed;
+  right:6px;
+  bottom:6px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  opacity:0.01;
+  z-index:1;
+  pointer-events:none;
+}
+#bgMusicWrap iframe{
+  width:1px;
+  height:1px;
+  border:0;
+}
+
+.music-hint{
+  position:fixed;
+  right:10px;
+  bottom:10px;
+  z-index:40;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:rgba(255,255,255,.75);
+  border:2px solid var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  cursor:pointer;
+  opacity:.45;
+  transition:opacity .2s;
+  user-select:none;
+}
+.music-hint:hover{opacity:1}
+.music-hint.hidden{display:none}
+
+.heart{position:fixed;z-index:1;pointer-events:none;animation:floatUp 5s ease-in forwards;font-size:20px}
+@keyframes floatUp{from{transform:translateY(0) rotate(0);opacity:1}to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+@media(max-width:640px){.chapter{padding:22px 18px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <span class="tag">漫画小站 · 我和她的故事</span>
+    <h1>我们的<span>故事</span></h1>
+    <p class="subtitle">从一次相亲开始，到一句“愿你们都有幸福的结局”</p>
+    <p class="lead">有些人，相亲了很多次都不对。<br>直到遇见她，才知道什么叫发自内心的喜欢。</p>
+    <button class="btn" onclick="startMusic()">🎵 点我开始，边听边看 ↓</button>
+    <a class="btn yellow" href="#c1">开始看故事 ↓</a>
+    <p class="small" style="margin-top:18px">往下翻，一共 8 个小章节，大概 3 分钟看完。</p>
+  </div>
+</header>
+
+<main>
+  <section class="chapter" id="c1">
+    <div class="num">CHAPTER 01 · 在见面之前</div>
+    <h2>朋友圈里的一张照片，我就心动了</h2>
+    <p>在那之前，我相亲了好多次。不是不认真，是心里一直没有那种感觉。</p>
+    <p>直到在微信上，看到她朋友圈的一张照片——那一刻我就知道：<b>就是她了，是那种发自内心喜欢的人。</b></p>
+    <div class="phone">
+      <div class="top">微信 · 朋友圈</div>
+      <div class="bubble">✨ 她的照片，就这样安安静静地出现。</div><br>
+      <div class="bubble me">（心里突然跳了一下）<br>原来，喜欢一个人，是藏不住的。</div><br>
+      <div class="bubble">我知道，我可能配不上她。<br>可是，喜欢就是控制不住啊。</div>
+    </div>
+    <p class="small">这一页没有配图，因为有些心动，是一张照片开始的，却说不出一张具体的样子。</p>
+  </section>
+
+  <section class="chapter" id="c2">
+    <div class="num">CHAPTER 02 · 第一次见面 · 冬天 · 夜里 19 点</div>
+    <h2>商场门口，她笑着，尴尬就散了一半</h2>
+    <img src="/01-first-meeting.webp" alt="冬夜商场门口第一次见面，女生穿淡黄色外套">
+    <p class="caption">冬夜 · 商场门口 · 19:00 —— 很多年过去，我还记得第一次见她的样子。</p>
+    <p>她穿着一件<b>淡黄色的外套，深色的裤子，白色的鞋子</b>。她应该是那种内向的人，却特别善良。</p>
+    <p>第一次见面，气氛难免尴尬。她会时不时地笑一下——就那一下，尴尬就被轻轻化解了。</p>
+    <div><span class="bubble">她：😊（轻轻一笑）</span> <span class="bubble me">我：（紧张得手都不知道往哪放）</span></div>
+  </section>
+
+  <section class="chapter">
+    <div class="num">CHAPTER 03 · 每天微信</div>
+    <h2>见面之后，我每天都给她发微信</h2>
+    <p>第一次见面之后，我没有让这份喜欢凉下来。每天发微信，每天都想多了解她一点。</p>
+    <div class="phone">
+      <div class="top">微信聊天</div>
+      <div class="bubble me">今天过得怎么样？</div><br>
+      <div class="bubble">挺好的，你呢？😊</div><br>
+      <div class="bubble me">想你了……不对，是想跟你多聊聊。</div>
+    </div>
+    <p>然后，就有了第二次、第三次、第四次见面……</p>
+    <div class="dots">
+      <div class="dot"><span>🌹</span>第二次见面</div>
+      <div class="dot"><span>☕</span>第三次见面</div>
+      <div class="dot"><span>🎬</span>第四次见面</div>
+      <div class="dot"><span>……</span>还有很多次</div>
+    </div>
+  </section>
+
+  <section class="chapter">
+    <div class="num">CHAPTER 04 · 一个月之后</div>
+    <h2>我们确定关系了，我勇敢地牵了她的手</h2>
+    <img src="/02-holding-hands.webp" alt="第一次牵手的漫画">
+    <p class="caption">忘了是第二次还是第三次，我鼓起勇气，牵住了她的手。</p>
+    <p>一个月之后，我们确定了关系。虽然忘了到底是第二次还是第三次，我就勇敢地牵了她的手——<b>但也只有牵手的勇气，再往前一步，我不敢。</b></p>
+    <p>那种喜欢，是小心翼翼的，也是认真的。生怕走快一步，就会把她吓跑。</p>
+  </section>
+
+  <section class="chapter">
+    <div class="num">CHAPTER 05 · 很远的一次出游</div>
+    <h2>坐了一个多小时公交，巷子口的那一下</h2>
+    <img src="/03-alley.webp" alt="巷子口拥抱的漫画">
+    <p class="caption">送她到巷子口，灯光很暖，心跳很快。</p>
+    <p>还记得那次，我们去了很远的一个地方玩。回来的时候，坐了 <b>1 个多小时的公交车</b>，才回到市里面。</p>
+    <p>我送她到巷子口，终于鼓起勇气，<b>抱了她一下，亲了一下，然后就跑了……哈哈。</b></p>
+    <p>跑的时候，心里又甜又慌，好像做了全世界最勇敢、也最害羞的一件事。</p>
+  </section>
+
+  <section class="chapter">
+    <div class="num">CHAPTER 06 · 我以为的后来</div>
+    <h2>我以为，我们会像其他人一样</h2>
+    <div class="timeline">
+      <div>💕 <b>相爱</b> —— 每天都想见面，每天都想发微信。</div>
+      <div>💍 <b>结婚</b> —— 一起过日子，一起慢慢变老。</div>
+      <div>🏠 <b>相伴</b> —— 吵吵闹闹，也舍不得分开。</div>
+      <div>👴👵 <b>相守</b> —— 走到最后，还牵着手。</div>
+    </div>
+    <p>我以为我们的爱情，就跟其他人一样。可是，生活不是按剧本走的。</p>
+  </section>
+
+  <section class="chapter">
+    <div class="num">CHAPTER 07 · 分开</div>
+    <h2>她走得很决绝，我没有追回去的勇气</h2>
+    <img src="/04-farewell-hope.webp" alt="分开后望向黎明的漫画">
+    <p class="caption">不是不爱，是在那个当下，我没有勇气追上去。</p>
+    <p>后来发生了一些不好的事情，我们还是分开了。<b>她走得很决绝，我也没有去追回来的勇气。</b></p>
+    <p>这就是我们的故事。没有反转，没有重逢的彩蛋——至少，到这里还没有。</p>
+    <p class="small">如果你也曾经在巷子口、车站、路口，看着一个人走远，你会懂这种心情：不是不想追，是怕追上了，也不知道该说什么。</p>
+  </section>
+
+  <section class="wish">
+    <div class="num">ENDING · 写给看到这里的你</div>
+    <!-- 修复了这里的问号 -->
+    <h2>愿你勇敢一点，<br>愿你有一个幸福的结局 💖</h2>
+    <p>我们的结局不好，但这个故事不想停在难过里。</p>
+    <p><b>希望看到我们故事的人，都能够有幸福的结局。</b><br>喜欢就说出来，想牵手就勇敢一点，想挽留，就不要等到巷子口才后悔。</p>
+    <input id="blessInput" placeholder="留一句祝福吧，比如：愿你们都勇敢又幸福…" maxlength="80">
+    <br><button class="btn" onclick="addBless()">💌 送上这句祝福</button>
+    <ul id="blessList"></ul>
+    <p class="small">小提示：这里的祝福只会保存在你自己的浏览器里，是给自己留念的。</p>
+  </section>
+</main>
+
+<footer>
+  <p>我们的故事 · 根据讲述画成的漫画小站，人物为漫画形象，不是真人照片。<br>背景音乐来自网易云外链播放器，点击页面右下角的音符即可播放。</p>
+  <p><a href="https://music.163.com/#/song?id=27928402" target="_blank" rel="noopener">在网易云打开这首歌 ↗</a></p>
+</footer>
+
+<!-- 隐藏的网易云播放器：只负责出声，不占页面、不挡点击 -->
+<div id="bgMusicWrap" aria-hidden="true">
+  <iframe id="neteasePlayer"
+          src="https://music.163.com/outchain/player?type=2&id=27928402&auto=0&height=66"
+          allow="autoplay"
+          title="背景音乐播放器"></iframe>
+</div>
+
+<!-- 小音符：不遮挡内容，可点击播放 -->
+<div class="music-hint" id="musicHint" title="点一下播放背景音乐" onclick="wakeMusic()">🎵</div>
+
+<script>
+var musicHint = document.getElementById('musicHint');
+var playerIframe = document.getElementById('neteasePlayer');
+
+function startMusic(){
+  playerIframe.src = 'https://music.163.com/outchain/player?type=2&id=27928402&auto=1&height=66';
+  musicHint.classList.add('hidden');
+  for(var i=0;i<8;i++) setTimeout(makeHeart, i*180);
+}
+
+function wakeMusic(){
+  playerIframe.src = 'https://music.163.com/outchain/player?type=2&id=27928402&auto=1&height=66';
+  musicHint.classList.add('hidden');
+}
+
+function makeHeart(){
+  var s=document.createElement('span');
+  s.className='heart';
+  s.textContent=['💗','💖','❤️'][Math.floor(Math.random()*3)];
+  s.style.left=(10+Math.random()*80)+'vw';
+  s.style.bottom='90px';
+  document.body.appendChild(s);
+  setTimeout(function(){s.remove()},5200);
+}
+
+function addBless(){
+  var v=document.getElementById('blessInput');
+  var t=v.value.trim();
+  if(!t){alert('先写一句祝福再送出哦');return;}
+  var li=document.createElement('li');
+  li.textContent='💌 '+t;
+  document.getElementById('blessList').prepend(li);
+  try{
+    var a=JSON.parse(localStorage.getItem('our_bless')||'[]');
+    a.unshift(t);
+    localStorage.setItem('our_bless',JSON.stringify(a.slice(0,20)));
+  }catch(e){}
+  v.value='';
+  makeHeart();
+}
+
+try{
+  (JSON.parse(localStorage.getItem('our_bless')||'[]')).forEach(function(t){
+    var li=document.createElement('li');
+    li.textContent='💌 '+t;
+    document.getElementById('blessList').appendChild(li);
+  });
+}catch(e){}
+
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.chapter').forEach(function(c){io.observe(c)});
+
+setInterval(makeHeart,4200);
+</script>
+</body>
+</html>
